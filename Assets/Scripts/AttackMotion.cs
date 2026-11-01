@@ -1,6 +1,7 @@
 using UnityEngine;
 using StarterAssets;
 
+//for the spin attack, so the motion of the spin works
 public class AttackRootMotion : StateMachineBehaviour
 {
     private CharacterController characterController;
