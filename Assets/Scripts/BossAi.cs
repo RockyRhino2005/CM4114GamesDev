@@ -10,8 +10,9 @@ public class BossAi : MonoBehaviour
     private NavMeshAgent agent;
     private Animator animator;
     private float nextAttackTime;
-    private int attackNumber = 1;
     private float attackEndTime;
+
+    private bool comboPlaying = false;
 
 
     //get components
@@ -73,20 +74,21 @@ public class BossAi : MonoBehaviour
 
     void Attack()
     {
-        //trigger attack animation
-        animator.SetTrigger("Attack" + attackNumber);
+        comboPlaying = true;
+        agent.isStopped = true;
+        agent.ResetPath();
+        animator.SetBool("IsWalking", false);
 
-        attackNumber++;
+        animator.SetTrigger("Attack1");
 
-        //cycle through attacks
-        attackNumber++;
-        if (attackNumber > 3)
-        {
-            attackNumber = 1;
-        }
-
-        //Time for attack animation
+        //Time for attack animationa
         attackEndTime = Time.time + 1.5f;
         nextAttackTime = Time.time + attackCooldown;
     }
+
+    public void FinishCombo()
+{
+    comboPlaying = false;
+    nextAttackTime = Time.time + attackCooldown;
+}
 }
