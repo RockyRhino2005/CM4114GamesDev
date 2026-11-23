@@ -203,7 +203,19 @@ namespace StarterAssets
             }
 
             // clamp our rotations so our values are limited 360 degrees
-            _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+
+            // _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+
+            //updated to stop camera from spinning around too much
+            float playerYaw = transform.eulerAngles.y;
+
+            float cameraDifference = Mathf.DeltaAngle(playerYaw,_cinemachineTargetYaw);
+
+            cameraDifference = Mathf.Clamp(cameraDifference, -45f, 45f);
+
+            _cinemachineTargetYaw = playerYaw + cameraDifference;
+
+
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 
             // Cinemachine will follow this target

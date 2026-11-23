@@ -19,16 +19,16 @@ public class HealthTest : MonoBehaviour
             return;
 
         //h key to take damage, j key to heal
-        if (Keyboard.current.hKey.wasPressedThisFrame)
-        {
-            health.TakeDamage(10f);
-            Debug.Log("player took damage");
-        }
+        // if (Keyboard.current.hKey.wasPressedThisFrame)
+        // {
+        //     health.TakeDamage(10f);
+        //     Debug.Log("player took damage");
+        // }
 
-        if (Keyboard.current.jKey.wasPressedThisFrame)
-        {
-            health.Heal(10f);
-            Debug.Log("player healed");
-        }
+        // if (Keyboard.current.jKey.wasPressedThisFrame)
+        // {
+        //     health.Heal(10f);
+        //     Debug.Log("player healed");
+        // }
     }
 }

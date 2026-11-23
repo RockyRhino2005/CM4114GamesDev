@@ -60,12 +60,12 @@ public class PlayerAttack : MonoBehaviour
     public void StartAttack()
     {
         swordDamage.EnableDamage();
-        Debug.Log("Sword damage enabled");
+        // Debug.Log("Sword damage enabled");
     }
 
     public void EndAttack()
     {
         swordDamage.DisableDamage();
-        Debug.Log("Sword damage disabled");
+        // Debug.Log("Sword damage disabled");
     }
 }
