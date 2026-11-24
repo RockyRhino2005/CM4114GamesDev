@@ -15,15 +15,15 @@ public class HealthTest : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current == null || health == null)
-            return;
+        // if (Keyboard.current == null || health == null)
+        //     return;
 
         //h key to take damage, j key to heal
-        // if (Keyboard.current.hKey.wasPressedThisFrame)
-        // {
-        //     health.TakeDamage(10f);
-        //     Debug.Log("player took damage");
-        // }
+         if (Keyboard.current.hKey.wasPressedThisFrame)
+         {
+             health.TakeDamage(10f);
+             Debug.Log("player took damage");
+         }
 
         // if (Keyboard.current.jKey.wasPressedThisFrame)
         // {

@@ -10,6 +10,13 @@ public class PlayerHealth : MonoBehaviour
     public event Action<float, float> OnHealthChanged;
     public event Action OnDeath;
 
+    //health regen
+    public float regenAmount = 10f;
+    public float regenDelay = 2f;
+    public float regenDuration = 4f;
+    private float timeSinceLastDamage;
+    public bool IsHealing { get; private set; }
+
     //player spawn
     private void Awake()
     {
@@ -17,10 +24,28 @@ public class PlayerHealth : MonoBehaviour
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
+    private void Update()
+    {
+        if (IsDead) return;
+
+        timeSinceLastDamage += Time.deltaTime;
+
+        if (timeSinceLastDamage >= regenDelay)
+        {
+            IsHealing = true;
+            float healRate = regenAmount / regenDuration;
+
+            Heal(healRate * Time.deltaTime);
+        }
+    }
+
     //player taking damage
     public void TakeDamage(float damage)
     {
         if (IsDead || damage <= 0f) return;
+
+        timeSinceLastDamage = 0f;
+        IsHealing = false;
 
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
 
@@ -39,6 +64,11 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
 
+        if (currentHealth >= maxHealth)
+        {
+            IsHealing = false;
+        }
+
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
@@ -46,6 +76,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die(){
         IsDead = true;
         OnDeath?.Invoke();
+        IsHealing = false;
 
         Debug.Log("Player has died.");
     }
